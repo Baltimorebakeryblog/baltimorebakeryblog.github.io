@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map — The Old Line Bakery Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+<div class="wrap-wide">
+
+  <header class="site-header">
+    <h1 class="site-title"><a href="index.html">The Old Line Bakery Trail</a></h1>
+    <p class="tagline">One Maryland bakery at a time.</p>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="bakeries.html">All Bakeries</a>
+      <a href="rankings.html">Rankings</a>
+      <a href="map.html" class="active">Map</a>
+      <a href="to-visit.html">Bakeries to Visit</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="page-title">Map</h1>
+    <p class="page-sub">Every bakery I've got coordinates for — visited and backlog alike.</p>
+
+    <div id="map"></div>
+    <div class="map-legend">
+      <span class="visited">Visited</span>
+      <span class="backlog">Backlog</span>
+    </div>
+    <p id="no-coords" class="empty-state" style="margin-top:1.5rem;"></p>
+  </main>
+
+  <footer>
+    &copy; 2026 The Old Line Bakery Trail. Built with care in Maryland.
+  </footer>
+
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const withCoords = BAKERIES.filter(b => typeof b.lat === "number" && typeof b.lng === "number");
+  const withoutCoords = BAKERIES.length - withCoords.length;
+
+  const map = L.map("map").setView([39.0, -76.7], 8); // roughly centered on Maryland
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  function pinIcon(color) {
+    return L.divIcon({
+      className: "",
+      html: `<div style="width:16px;height:16px;border-radius:50%;background:${color};border:2px solid #fffaf1;box-shadow:0 0 0 1px rgba(0,0,0,0.25);"></div>`,
+      iconSize: [16, 16],
+      iconAnchor: [8, 8]
+    });
+  }
+
+  const bounds = [];
+  withCoords.forEach(b => {
+    const color = b.visited ? "#b5533c" : "#8a9a7a";
+    const marker = L.marker([b.lat, b.lng], { icon: pinIcon(color) }).addTo(map);
+    const scoreLine = b.visited ? `Score: ${formatScore(b.score)}` : "Not visited yet";
+    const link = b.visited ? `<br><a href="${reviewLink(b)}">Read review &rarr;</a>` : "";
+    marker.bindPopup(`<strong>${b.name}</strong><br>${b.city}<br>${scoreLine}${link}`);
+    bounds.push([b.lat, b.lng]);
+  });
+
+  if (bounds.length) {
+    map.fitBounds(bounds, { padding: [30, 30], maxZoom: 11 });
+  }
+
+  if (withoutCoords > 0) {
+    document.getElementById("no-coords").textContent =
+      `${withoutCoords} ${withoutCoords === 1 ? "bakery doesn't" : "bakeries don't"} have coordinates yet, so ${withoutCoords === 1 ? "it isn't" : "they aren't"} pinned above. Add lat/lng in data.js to place them.`;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakeries to Visit — The Old Line Bakery Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-header">
+    <h1 class="site-title"><a href="index.html">The Old Line Bakery Trail</a></h1>
+    <p class="tagline">One Maryland bakery at a time.</p>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="bakeries.html">All Bakeries</a>
+      <a href="rankings.html">Rankings</a>
+      <a href="map.html">Map</a>
+      <a href="to-visit.html" class="active">Bakeries to Visit</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="page-title">Bakeries to Visit</h1>
+    <p class="page-sub">The backlog. No score, no review — just a reminder to go.</p>
+
+    <ul class="to-visit-list" id="to-visit"></ul>
+  </main>
+
+  <footer>
+    &copy; 2026 The Old Line Bakery Trail. Built with care in Maryland.
+  </footer>
+
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const list = toVisitList();
+  const container = document.getElementById("to-visit");
+  container.innerHTML = list.length
+    ? list.map(b => `
+        <li>
+          <div class="tv-name">${b.name}</div>
+          <div class="tv-city">${b.city}</div>
+          ${b.notes ? `<div class="tv-note">${b.notes}</div>` : ""}
+        </li>`).join("")
+    : '<li class="empty-state">The backlog is empty — add an entry with <code>visited: false</code> in data.js.</li>';
+</script>
+</body>
+</html>
