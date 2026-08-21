@@ -1,81 +1,109 @@
-# The Old Line Bakery Trail
+# baltimorebakeryblog
 
-A simple, free, no-build-tools blog for tracking Maryland bakeries: reviews,
-rankings, a map, and a backlog of places to visit.
+baltimorebakeryblog is a warm, independent guide to bakeries around
+Baltimore, across Maryland, and at the occasional travel stop. It combines a
+searchable directory, honest developing rankings, an interactive map with a
+text fallback, a future-visit list, and readable bakery detail pages.
 
-## How it's built
+The project stays intentionally simple: semantic HTML, one shared CSS design
+system, and vanilla JavaScript. There is no framework, package install, build
+step, server, database, or production dependency. Routine content updates
+still happen in one place: `data.js`.
 
-Just plain HTML, CSS, and a little JavaScript — no npm, no build step, no
-server required. All the bakery data lives in **one file**, `data.js`.
-Every page reads from that file, so adding or updating a bakery there
-updates the Home page, All Bakeries, Rankings, and the Map automatically.
+## Visitor experience
 
-Files:
+- Home explains the guide immediately, links to the directory and map in the
+  opening view, and calculates trail counts directly from the bakery records.
+- The bakery directory searches names and cities case-insensitively. Visitors
+  can also filter by location or editorial state, see a live result count,
+  clear every choice at once, and recover from a no-results search.
+- Rankings clearly separate numeric scores from category winners and provide
+  useful onward routes while either collection is still being assembled.
+- The To Visit page searches planned stops by name or city and keeps their
+  locations and available notes easy to scan.
+- The map distinguishes visited and planned stops with text and symbols as
+  well as color. Its complete text directory remains useful if Leaflet, map
+  tiles, or coordinates are unavailable.
+- Bakery detail pages show only recorded facts, provide encoded Google Maps
+  directions when an address exists, and use an honest coming-soon state when
+  a full review is not available.
 
-- `data.js` — **edit this to add bakeries.** Fully commented with the field list.
-- `index.html` — Home (newest reviews + current favorites)
-- `bakeries.html` — All Bakeries (alphabetical, with score + city)
-- `rankings.html` — Top 10 + Best Croissant / Best Donut / etc.
-- `map.html` — every bakery you have coordinates for
-- `to-visit.html` — the backlog
-- `review.html` — one template that renders any bakery's full write-up
-  (linked as `review.html?id=slug`)
-- `style.css` — all the styling
-- `app.js` — small helper functions the pages share
+Every public page has a skip link, visible keyboard focus, labelled navigation,
+page-specific metadata, semantic landmarks, mobile-friendly controls, and a
+reduced-motion mode. System font fallbacks avoid a font network request and
+layout shift; only the map page loads Leaflet.
 
-## Adding a bakery
+## Project files
 
-Open `data.js` and copy one of the existing entries inside the `BAKERIES`
-array, then edit the fields. The comment block at the top of the file
-explains each one. A few notes:
+- `data.js` — the single source of truth for bakery facts; edit this for
+  routine content updates.
+- `app.js` — shared sorting, formatting, escaping, counts, filtering, map, and
+  page-rendering helpers.
+- `style.css` — the complete responsive design system.
+- `index.html` — editorial home page and live trail overview.
+- `bakeries.html` — searchable and filterable visited-bakery directory.
+- `rankings.html` — scored standings and category winners.
+- `map.html` — Leaflet map plus a complete accessible text directory.
+- `to-visit.html` — searchable bakery backlog.
+- `review.html` — detail template rendered with `review.html?id=slug`.
+- `tests/site-check.mjs` — dependency-free static site validation.
 
-- Leave `lat`/`lng` as `null` if you don't have coordinates yet — it just
-  won't get a pin on the map. Give me an address any time and I can look up
-  the coordinates and add the entry for you.
-- Leave `review` as `null` until you've written the full thing — the site
-  will show your short `notes` instead and say the full review is coming.
-- Set `visited: false` (and leave `score`/`review` as `null`) for anything
-  still on your backlog — it'll show up on the "Bakeries to Visit" page
-  instead of the reviewed lists.
+## Add or update a bakery
 
-The three "example-" entries in `data.js` are placeholders — delete them
-once you've added your own bakeries.
+Open `data.js`, copy an existing object inside the `BAKERIES` array, and edit
+its fields. The comment at the top of that file documents the full content
+model. Keep these rules in mind:
 
-## Previewing it before you publish
+- Give each bakery a unique lowercase, dash-separated `slug`; it becomes the
+  `id` in its detail-page URL.
+- Leave `lat` and `lng` as `null` when coordinates are unknown. The bakery
+  remains in the text directory without producing a map pin.
+- Leave `score` as `null` until a numeric score exists. The site displays an
+  explicit pending state instead of inventing a rating.
+- Leave `review` as `null` until the full write-up is ready. Available `notes`
+  are shown as field notes, followed by a review-coming-soon state.
+- Set `visited: false` for a planned stop. It appears on To Visit rather than
+  in the visited directory and rankings.
 
-Just double-click `index.html` (or any of the other pages) to open it in
-your browser. Everything works locally except the Google Fonts and the map
-tiles/Leaflet library, which need an internet connection to load — normal
-for any live website, and they'll work fine once it's actually hosted.
+No bakery object or fact needs to be copied into an HTML page. Updating
+`data.js` updates the experience everywhere.
 
-## Publishing it for free with GitHub Pages
+## Preview and verify locally
 
-1. Create a free account at [github.com](https://github.com) if you don't
-   already have one.
-2. Click the **+** in the top right → **New repository**. Name it something
-   like `bakery-trail`. Keep it Public. Don't add a README (you already
-   have one).
-3. On the new repo's page, click **uploading an existing file**, then drag
-   in every file from this folder (`index.html`, `style.css`, `data.js`,
-   `app.js`, and all the other `.html` files). Commit the changes.
-4. Go to the repo's **Settings** tab → **Pages** (left sidebar). Under
-   "Build and deployment," set Source to **Deploy from a branch**, branch
-   **main**, folder **/ (root)**. Save.
-5. Wait a minute, then refresh that page — GitHub will show you the live
-   URL, something like `https://yourusername.github.io/bakery-trail/`.
-   That's your blog, live and free.
+A local HTTP server most closely matches GitHub Pages and lets Leaflet load
+normally:
 
-### Updating it later
+```bash
+python3 -m http.server 8000
+```
 
-Any time you edit `data.js` (or anything else) to add a bakery, just go
-back to the repo on GitHub, open the file, click the pencil (edit) icon,
-paste in the update, and commit. The live site updates within a minute or
-two — no build step, no redeploy button to press.
+Then open `http://localhost:8000/`. You can also open the HTML files directly;
+everything except network-hosted Leaflet assets and map tiles will still work.
 
-### Optional: a custom domain
+Run the exact quality checks before publishing:
 
-If you ever want `yourdomain.com` instead of the `github.io` address, buy
-a domain from any registrar (Namecheap, Google Domains successor, etc. —
-this is the one part that costs money, typically $10–15/year) and add it
-in the same Settings → Pages screen. Totally optional — the free
-`github.io` address works fine on its own.
+```bash
+node --check app.js
+node --check data.js
+node tests/site-check.mjs
+```
+
+The checker uses only Node built-in modules. It deliberately exits nonzero for
+missing local assets or broken internal HTML links, and also verifies metadata,
+skip links, main landmarks, labelled navigation, active-page semantics,
+deferred local scripts, and responsive/focus/reduced-motion CSS hooks. These
+checks protect the no-build GitHub Pages workflow from quiet link and
+accessibility regressions.
+
+## Publish with GitHub Pages
+
+1. Create or open a GitHub repository containing every file in this project.
+2. In the repository, go to **Settings → Pages**.
+3. Under **Build and deployment**, choose **Deploy from a branch**, select the
+   `main` branch and the `/(root)` folder, then save.
+4. Wait for GitHub Pages to report the public URL. Future edits to `data.js`
+   (or any other project file) publish after they are committed to that branch;
+   there is no separate build or deploy command.
+
+A custom domain can be configured later in the same Pages settings, but the
+default `github.io` address works without one.

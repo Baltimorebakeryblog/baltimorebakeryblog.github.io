@@ -1,113 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Map — The Old Line Bakery Trail</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore visited and planned bakery stops on the baltimorebakeryblog map, with an accessible text directory for every location.">
+  <meta name="theme-color" content="#68251c">
+  <title>Bakery Trail Map | baltimorebakeryblog</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
-<body>
-<div class="wrap-wide">
+<body data-page="map">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="baltimorebakeryblog home"><span class="brand-mark" aria-hidden="true">BB</span><span class="brand-copy"><strong>baltimorebakeryblog</strong><small>One Maryland bakery at a time</small></span></a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index.html">Home</a><a href="bakeries.html">Bakeries</a><a href="rankings.html">Rankings</a><a href="map.html" aria-current="page">Map</a><a href="to-visit.html">To visit</a>
+        </nav>
+      </div>
+    </header>
 
-  <header class="site-header">
-    <h1 class="site-title"><a href="index.html">The Old Line Bakery Trail</a></h1>
-    <p class="tagline">One Maryland bakery at a time.</p>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="bakeries.html">All Bakeries</a>
-      <a href="rankings.html">Rankings</a>
-      <a href="map.html" class="active">Map</a>
-      <a href="to-visit.html">Bakeries to Visit</a>
-    </nav>
-  </header>
+    <main id="main-content" tabindex="-1">
+      <div class="container">
+        <header class="page-intro">
+          <p class="eyebrow">Plot the route</p>
+          <h1 id="map-page-title">Bakery trail map</h1>
+          <p>Explore geocoded stops across Maryland and beyond. The text directory below keeps every bakery readable even if the interactive map is unavailable.</p>
+        </header>
+        <section class="map-layout" aria-labelledby="interactive-map-title">
+          <h2 id="interactive-map-title">Interactive bakery map</h2>
+          <div class="map-frame">
+            <div id="map" role="region" aria-label="Interactive map of bakery trail locations" aria-describedby="map-status" tabindex="0"></div>
+            <div class="map-meta">
+              <ul class="map-legend" aria-label="Map marker legend">
+                <li><span class="legend-symbol legend-symbol--visited" aria-hidden="true">✓</span> Visited bakery</li>
+                <li><span class="legend-symbol legend-symbol--planned" aria-hidden="true">+</span> Planned stop</li>
+              </ul>
+              <p id="map-status" role="status" aria-live="polite">Loading bakery locations…</p>
+            </div>
+          </div>
+          <section class="map-directory-section" aria-labelledby="map-directory-title">
+            <p class="eyebrow">Text alternative</p>
+            <h2 id="map-directory-title">Map directory</h2>
+            <p>Every guide entry in a scannable list, including places without coordinates and links to visited bakery details.</p>
+            <div id="map-directory-content"></div>
+          </section>
+        </section>
+      </div>
+    </main>
 
-  <main>
-    <h1 class="page-title">Map</h1>
-    <p class="page-sub">Every bakery I've got coordinates for — visited and backlog alike.</p>
-
-    <div id="map"></div>
-    <div class="map-legend">
-      <span class="visited">Visited</span>
-      <span class="backlog">Backlog</span>
-    </div>
-    <p id="no-coords" class="empty-state" style="margin-top:1.5rem;"></p>
-  </main>
-
-  <footer>
-    &copy; 2026 The Old Line Bakery Trail. Built with care in Maryland.
-  </footer>
-
-</div>
-
-<script src="data.js"></script>
-<script src="app.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  const withCoords = BAKERIES.filter(b => typeof b.lat === "number" && typeof b.lng === "number");
-  const withoutCoords = BAKERIES.length - withCoords.length;
-
-  const map = L.map("map").setView([39.0, -76.7], 8); // roughly centered on Maryland
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: "&copy; OpenStreetMap contributors"
-  }).addTo(map);
-
-  function pinIcon(color) {
-    return L.divIcon({
-      className: "",
-      html: `<div style="width:16px;height:16px;border-radius:50%;background:${color};border:2px solid #fffaf1;box-shadow:0 0 0 1px rgba(0,0,0,0.25);"></div>`,
-      iconSize: [16, 16],
-      iconAnchor: [8, 8]
-    });
-  }
-
-  // Pins outside Maryland (e.g. travel stops) would otherwise force the
-  // default view to zoom way out to fit them. So the initial view fits
-  // only the Maryland cluster; every pin still gets placed on the map,
-  // and out-of-state ones are just a scroll/zoom away.
-  const mdBounds = [];
-  const allBounds = [];
-  let outOfStateCount = 0;
-
-  withCoords.forEach(b => {
-    const color = b.visited ? "#b5533c" : "#8a9a7a";
-    const marker = L.marker([b.lat, b.lng], { icon: pinIcon(color) }).addTo(map);
-    const scoreLine = b.visited ? `Score: ${formatScore(b.score)}` : "Not visited yet";
-    const link = b.visited ? `<br><a href="${reviewLink(b)}">Read review &rarr;</a>` : "";
-    marker.bindPopup(`<strong>${b.name}</strong><br>${b.city}<br>${scoreLine}${link}`);
-
-    const isMaryland = /,\s*MD$/i.test((b.city || "").trim());
-    allBounds.push([b.lat, b.lng]);
-    if (isMaryland) {
-      mdBounds.push([b.lat, b.lng]);
-    } else {
-      outOfStateCount++;
-    }
-  });
-
-  const boundsToFit = mdBounds.length ? mdBounds : allBounds;
-  if (boundsToFit.length) {
-    map.fitBounds(boundsToFit, { padding: [30, 30], maxZoom: 11 });
-  }
-
-  const noCoordsEl = document.getElementById("no-coords");
-  const notes = [];
-  if (outOfStateCount > 0) {
-    notes.push(
-      `${outOfStateCount} ${outOfStateCount === 1 ? "bakery is" : "bakeries are"} outside Maryland (travel stops), so the map opens zoomed to the Maryland cluster — zoom or scroll out to find ${outOfStateCount === 1 ? "it" : "them"}.`
-    );
-  }
-  if (withoutCoords > 0) {
-    notes.push(
-      `${withoutCoords} ${withoutCoords === 1 ? "bakery doesn't" : "bakeries don't"} have coordinates yet, so ${withoutCoords === 1 ? "it isn't" : "they aren't"} pinned above. Add lat/lng in data.js to place them.`
-    );
-  }
-  noCoordsEl.textContent = notes.join(" ");
-</script>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div><p class="footer-brand">baltimorebakeryblog</p><p class="footer-note">An independent guide, built with care in Maryland.</p></div>
+        <div><nav class="footer-links" aria-label="Footer navigation"><a href="bakeries.html">Directory</a><a href="map.html">Map</a><a href="to-visit.html">Next stops</a></nav><p class="footer-meta">&copy; 2026 baltimorebakeryblog</p></div>
+      </div>
+    </footer>
+  </div>
+  <script src="data.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
