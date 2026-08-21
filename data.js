@@ -1,5 +1,5 @@
 /*
-  The Old Line Bakery Trail — bakery data
+  baltimorebakeryblog — bakery data
   ----------------------------------------
   This is the ONLY file you need to edit to add or update a bakery.
   Every page (Home, All Bakeries, Rankings, Map, Bakeries to Visit) reads

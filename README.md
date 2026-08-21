@@ -1,4 +1,4 @@
-# The Old Line Bakery Trail
+# baltimorebakeryblog
 
 A simple, free, no-build-tools blog for tracking Maryland bakeries: reviews,
 rankings, a map, and a backlog of places to visit.

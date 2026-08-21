@@ -1,4 +1,4 @@
-/* The Old Line Bakery Trail — shared helper functions
+/* baltimorebakeryblog — shared helper functions
    Loaded after data.js on every page. */
 
 function byName(list) {

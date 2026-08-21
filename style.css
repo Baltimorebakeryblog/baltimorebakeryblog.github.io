@@ -1,4 +1,4 @@
-/* The Old Line Bakery Trail — shared styles */
+/* baltimorebakeryblog — shared styles */
 
 :root{
   --bg:#faf3e6;
@@ -11,6 +11,9 @@
   --rule:#e0d2bb;
   --gold:#c99a3c;
   --to-visit:#8a9a7a;
+  --shadow-sm:0 1px 3px rgba(58,42,30,0.08);
+  --shadow-md:0 6px 16px rgba(58,42,30,0.14);
+  --radius:10px;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
@@ -27,12 +30,31 @@ a:hover{color:var(--accent);}
 .wrap{max-width:760px;margin:0 auto;padding:0 1.5rem;}
 .wrap-wide{max-width:920px;margin:0 auto;padding:0 1.5rem;}
 
+/* skip link */
+.skip-link{
+  position:absolute;
+  left:-999px;
+  top:auto;
+  background:var(--card);
+  color:var(--text);
+  padding:0.6rem 1rem;
+  border-radius:6px;
+  box-shadow:var(--shadow-md);
+  z-index:100;
+}
+.skip-link:focus{
+  left:1rem;
+  top:1rem;
+}
+
 /* header / nav */
 header.site-header{
   padding:3.5rem 0 1.5rem;
   text-align:center;
   border-bottom:1px solid var(--rule);
   margin-bottom:3rem;
+  background:linear-gradient(to bottom, var(--bg-alt), var(--bg));
+  border-radius:0 0 var(--radius) var(--radius);
 }
 .site-title{
   font-family:"Fraunces", Georgia, serif;
@@ -60,13 +82,19 @@ nav.site-nav a{
   font-size:0.76rem;
   letter-spacing:0.1em;
   color:var(--text-soft);
-  padding-bottom:0.4rem;
+  padding:0.35rem 0.7rem 0.4rem;
   border-bottom:2px solid transparent;
+  border-radius:999px;
+  transition:color .15s ease, background-color .15s ease, border-color .15s ease;
 }
-nav.site-nav a:hover,
+nav.site-nav a:hover{
+  color:var(--accent-dark);
+  background:var(--bg-alt);
+}
 nav.site-nav a.active{
   color:var(--accent-dark);
   border-bottom-color:var(--accent);
+  background:var(--card);
 }
 
 h1.page-title{
@@ -113,11 +141,19 @@ h2.block-title{
   display:flex;
   gap:1rem;
   align-items:flex-start;
-  margin-bottom:1.6rem;
-  padding-bottom:1.6rem;
-  border-bottom:1px dashed var(--rule);
+  margin-bottom:1rem;
+  padding:1.1rem 1.2rem;
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease, box-shadow .15s ease;
 }
-.entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.entry:last-child{margin-bottom:0;}
+.entry:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
 .entry-body{flex:1;min-width:0;}
 .entry-title{
   font-family:"Fraunces", Georgia, serif;
@@ -145,6 +181,13 @@ h2.block-title{
 }
 
 /* All Bakeries table */
+.table-card{
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+}
 table.bakery-list{width:100%;border-collapse:collapse;font-size:0.96rem;}
 table.bakery-list th{
   text-align:left;
@@ -152,15 +195,18 @@ table.bakery-list th{
   text-transform:uppercase;
   letter-spacing:0.08em;
   color:var(--text-soft);
+  background:var(--bg-alt);
   border-bottom:1px solid var(--rule);
-  padding:0 0.5rem 0.6rem;
+  padding:0.7rem 1rem;
 }
 table.bakery-list td{
-  padding:0.9rem 0.5rem;
+  padding:0.9rem 1rem;
   border-bottom:1px solid var(--rule);
   vertical-align:middle;
 }
 table.bakery-list tr:last-child td{border-bottom:none;}
+table.bakery-list tbody tr{transition:background-color .15s ease;}
+table.bakery-list tbody tr:hover{background:var(--bg-alt);}
 table.bakery-list td.name{font-weight:600;}
 table.bakery-list td.score-cell{width:3rem;}
 table.bakery-list .no-review{color:var(--text-soft);font-style:italic;font-size:0.9rem;}
@@ -172,10 +218,13 @@ table.bakery-list .no-review{color:var(--text-soft);font-style:italic;font-size:
   display:flex;
   align-items:center;
   gap:1rem;
-  padding:0.9rem 0;
+  padding:0.9rem 0.75rem;
   border-bottom:1px solid var(--rule);
+  border-radius:8px;
+  transition:background-color .15s ease;
 }
 .top10 li:last-child{border-bottom:none;}
+.top10 li:hover{background:var(--bg-alt);}
 .top10 li::before{
   content:counter(rank);
   font-family:"Fraunces", serif;
@@ -194,8 +243,14 @@ table.bakery-list .no-review{color:var(--text-soft);font-style:italic;font-size:
 .super-card{
   background:var(--card);
   border:1px solid var(--rule);
-  border-radius:10px;
+  border-radius:var(--radius);
   padding:1.1rem 1.2rem;
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.super-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
 }
 .super-label{
   text-transform:uppercase;
@@ -209,10 +264,13 @@ table.bakery-list .no-review{color:var(--text-soft);font-style:italic;font-size:
 /* Bakeries to visit */
 .to-visit-list{list-style:none;margin:0;padding:0;}
 .to-visit-list li{
-  padding:0.9rem 0;
+  padding:0.9rem 1rem;
   border-bottom:1px solid var(--rule);
+  border-radius:8px;
+  transition:background-color .15s ease;
 }
 .to-visit-list li:last-child{border-bottom:none;}
+.to-visit-list li:hover{background:var(--bg-alt);}
 .tv-name{font-weight:600;}
 .tv-city{color:var(--text-soft);font-size:0.9rem;}
 .tv-note{color:var(--text-soft);font-size:0.92rem;margin-top:0.2rem;}
@@ -221,8 +279,9 @@ table.bakery-list .no-review{color:var(--text-soft);font-style:italic;font-size:
 #map{
   width:100%;
   height:520px;
-  border-radius:10px;
+  border-radius:var(--radius);
   border:1px solid var(--rule);
+  box-shadow:var(--shadow-sm);
 }
 .map-legend{
   display:flex;
@@ -236,12 +295,11 @@ table.bakery-list .no-review{color:var(--text-soft);font-style:italic;font-size:
   display:inline-block;
   width:0.7rem;
   height:0.7rem;
-  border-radius:50%;
   margin-right:0.4rem;
   vertical-align:middle;
 }
-.map-legend .visited::before{background:var(--accent);}
-.map-legend .backlog::before{background:var(--to-visit);}
+.map-legend .visited::before{background:var(--accent);border-radius:50%;}
+.map-legend .backlog::before{background:var(--to-visit);border-radius:3px;transform:rotate(45deg);}
 
 /* single review page */
 .review-header{margin-bottom:2rem;}
@@ -259,6 +317,11 @@ footer{
   margin-top:3rem;
 }
 
+@media (max-width:768px){
+  #map{height:380px;}
+  .wrap-wide{padding:0 1.25rem;}
+}
+
 @media (max-width:560px){
   .site-title{font-size:2rem;}
   header.site-header{padding:2.75rem 0 1.5rem;}
@@ -266,4 +329,5 @@ footer{
   table.bakery-list{font-size:0.86rem;}
   table.bakery-list th:nth-child(3),
   table.bakery-list td:nth-child(3){display:none;} /* hide city col on tiny screens */
+  #map{height:300px;}
 }

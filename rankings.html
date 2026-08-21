@@ -3,28 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rankings — The Old Line Bakery Trail</title>
+<title>Rankings — baltimorebakeryblog</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2213%22 font-size=%2214%22>%F0%9F%A5%90</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a href="#content" class="skip-link">Skip to content</a>
 <div class="wrap">
 
-  <header class="site-header">
-    <h1 class="site-title"><a href="index.html">The Old Line Bakery Trail</a></h1>
-    <p class="tagline">One Maryland bakery at a time.</p>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="bakeries.html">All Bakeries</a>
-      <a href="rankings.html" class="active">Rankings</a>
-      <a href="map.html">Map</a>
-      <a href="to-visit.html">Bakeries to Visit</a>
-    </nav>
-  </header>
+  <header class="site-header" id="site-header"></header>
 
-  <main>
+  <main id="content">
     <h1 class="page-title">Rankings</h1>
     <p class="page-sub">The current standings — updated as I visit more places.</p>
 
@@ -39,14 +31,13 @@
     </section>
   </main>
 
-  <footer>
-    &copy; 2026 The Old Line Bakery Trail. Built with care in Maryland.
-  </footer>
+  <footer id="site-footer"></footer>
 
 </div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="partials.js"></script>
 <script>
   const top10El = document.getElementById("top10");
   const top10 = topScored(10);
