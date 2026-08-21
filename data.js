@@ -1,5 +1,5 @@
 /*
-  The Old Line Bakery Trail — bakery data
+  The Old Line Bakery Trail: bakery data
   ----------------------------------------
   This is the ONLY file you need to edit to add or update a bakery.
   Every page (Home, All Bakeries, Rankings, Map, Bakeries to Visit) reads
@@ -8,27 +8,27 @@
   FIELDS
   slug          unique id, lowercase-with-dashes, used in review links
   name          bakery name
-  city          "City, MD" — shown in lists
+  city          "City, MD" (shown in lists)
   address       full street address (optional, shown nowhere but handy to keep)
   lat / lng     coordinates for the map. Leave both as null if you don't
-                have them yet (e.g. for a "to visit" place) — it just
+                have them yet (e.g. for a "to visit" place); it just
                 won't get a pin.
-  visited       true once you've actually been — flips it from
+  visited       true once you've actually been; flips it from
                 "Bakeries to Visit" into the reviewed lists
   dateVisited   "YYYY-MM-DD", used to sort "Newest Reviews" on Home
   score         number 0–10, or null if not scored yet
   favorite      true to show it in the "Current Favorites" section on Home
-  superlative   e.g. "Best Croissant" — shows up on the Rankings page.
+  superlative   e.g. "Best Croissant" (shows up on the Rankings page).
                 Use null if it doesn't win a category.
   review        the full write-up, as a string. Use "\n\n" between
                 paragraphs. Leave as null if you haven't written the
-                full review yet — the site will show your `notes`
+                full review yet; the site will show your `notes`
                 instead and say the full review is coming.
   notes         a short one- or two-sentence blurb, used in list views
                 and as a placeholder until `review` is written. Also
                 used for "Bakeries to Visit" as a reason/reminder note.
 
-  The 35 entries below are all marked visited with coordinates geocoded
+  The 28 entries below are all marked visited with coordinates geocoded
   from the addresses you gave me. Several now have a score, date, and
   review; the rest will show up on Home/Rankings automatically as soon
   as you add those fields. Everything below is easy to find and edit:
@@ -45,7 +45,7 @@ const BAKERIES = [
     lng: -76.3670292,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
     review: null,
@@ -60,22 +60,7 @@ const BAKERIES = [
     lng: -76.4615380,
     visited: true,
     dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
-  },
-  {
-    slug: "dulce-panaderia-y-cafe",
-    name: "Dulce Panadería y Café",
-    city: "Essex, MD",
-    address: "424H Eastern Blvd, Essex, MD 21221",
-    lat: 39.3079775,
-    lng: -76.4775609,
-    visited: true,
-    dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
     review: null,
@@ -90,22 +75,7 @@ const BAKERIES = [
     lng: -76.5082052,
     visited: true,
     dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
-  },
-  {
-    slug: "aunties-annes-white-marsh",
-    name: "Auntie Anne's, White Marsh Mall",
-    city: "Nottingham, MD",
-    address: "8200 Perry Hall Blvd, Space 2069, Nottingham, MD 21236",
-    lat: 39.3749704,
-    lng: -76.4674271,
-    visited: true,
-    dateVisited: null,
-    score: null,
+    score: 8,
     favorite: false,
     superlative: null,
     review: null,
@@ -118,21 +88,6 @@ const BAKERIES = [
     address: "9911 Magledt Rd, Parkville, MD 21234",
     lat: 39.4029038,
     lng: -76.4978155,
-    visited: true,
-    dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
-  },
-  {
-    slug: "aunties-annes-eastpoint",
-    name: "Auntie Anne's, Eastpoint Mall",
-    city: "Baltimore, MD",
-    address: "Northpoint Blvd & Eastern Ave, Space 7832, Baltimore, MD 21224",
-    lat: 39.2935034,
-    lng: -76.5103941,
     visited: true,
     dateVisited: null,
     score: null,
@@ -158,22 +113,7 @@ const BAKERIES = [
 The donuts were amazing, honestly some of the best I've had. I tried the marshmallow donut and the jelly-filled donut, and both were perfect for what Fenwick is trying to be: a classic donut place.
 
 I also hear the beignets are amazing, so I definitely need to go back.`,
-    notes: "Classic Baltimore donut shop — the marshmallow and jelly-filled donuts are excellent."
-  },
-  {
-    slug: "grace-bakery",
-    name: "Grace Bakery",
-    city: "Baltimore, MD",
-    address: "6500 Eastern Ave, Baltimore, MD 21224",
-    lat: 39.2887346,
-    lng: -76.5360616,
-    visited: true,
-    dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
+    notes: "Classic Baltimore donut shop. The marshmallow and jelly-filled donuts are excellent."
   },
   {
     slug: "bagel-bistro",
@@ -184,7 +124,7 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
     lng: -76.5374857,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 6,
     favorite: false,
     superlative: null,
     review: null,
@@ -199,41 +139,11 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
     lng: -76.5564424,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
     review: null,
-    notes: ""
-  },
-  {
-    slug: "edelweiss-bakery-and-cafe",
-    name: "Edelweiss Bakery and Cafe",
-    city: "Baltimore, MD",
-    address: "6000 Harford Rd, Baltimore, MD 21214",
-    lat: 39.3568454,
-    lng: -76.5577627,
-    visited: true,
-    dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
-  },
-  {
-    slug: "antonios-bakery",
-    name: "Antonio's Bakery",
-    city: "Baltimore, MD",
-    address: "6210 Eastern Ave, Baltimore, MD 21224",
-    lat: 39.2877787,
-    lng: -76.5423190,
-    visited: true,
-    dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
+    notes: "Same bakery as the Bel Air location. Skip the cookies, get the carrot cake."
   },
   {
     slug: "ovenbird-bakery-highlandtown",
@@ -244,11 +154,11 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
     lng: -76.5639229,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 9,
     favorite: false,
     superlative: null,
     review: null,
-    notes: ""
+    notes: "Same bakery as the Little Italy location, home of the best chocolate chip cookie on the trail."
   },
   {
     slug: "cafe-dear-leon",
@@ -270,25 +180,25 @@ The only thing I really didn't like was a liquor cherry cookie. The alcohol flav
 
 One of the things that surprised me most about Café Dear Leon is the value. For the quality of the pastries and food, I think the prices are actually pretty reasonable compared with a lot of other bakeries I've visited.
 
-There is almost always a line when I go, but I think that says something about how loved the place is. Their coffee is also amazing. They use Ceremony Coffee — fun fact about me, I used to make my own iced coffee at home using Ceremony beans.
+There is almost always a line when I go, but I think that says something about how loved the place is. Their coffee is also amazing. They use Ceremony Coffee (fun fact about me: I used to make my own iced coffee at home using Ceremony beans).
 
 Café Dear Leon is one of those bakeries where I can keep coming back and still find something new to try. The food is consistently great, the coffee is excellent, and there's a reason I recommend it so often.`,
-    notes: "A regular stop — incredible pastries, Ceremony coffee, and prices that still feel fair."
+    notes: "A regular stop with incredible pastries, Ceremony coffee, and prices that still feel fair."
   },
   {
-    slug: "b-more-pies-and-sweets",
-    name: "B-More Pies and Sweets",
+    slug: "dangerously-delicious-pies-canton",
+    name: "Dangerously Delicious Pies, Canton",
     city: "Baltimore, MD",
     address: "2839 O'Donnell St, Baltimore, MD 21224",
     lat: 39.2798679,
     lng: -76.5755283,
     visited: true,
     dateVisited: null,
-    score: null,
-    favorite: false,
+    score: 10,
+    favorite: true,
     superlative: null,
     review: null,
-    notes: ""
+    notes: "Sister location to the Hampden shop, same pie program. Also since closed."
   },
   {
     slug: "kneads-bakeshop",
@@ -305,7 +215,7 @@ Café Dear Leon is one of those bakeries where I can keep coming back and still 
     review: `The chocolate chip cookie was alright, but the real star of the show was the crème brûlée donut, which was an original concept.
 
 They also have a lot of baking supplies and date nights, which makes the place feel like more than just a bakery.`,
-    notes: "The crème brûlée donut is the move — plus baking supplies and date nights on offer."
+    notes: "The crème brûlée donut is the move, plus baking supplies and date nights on offer."
   },
   {
     slug: "baltoz-bakery",
@@ -316,7 +226,7 @@ They also have a lot of baking supplies and date nights, which makes the place f
     lng: -76.6085821,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
     review: null,
@@ -339,7 +249,7 @@ They also have a lot of baking supplies and date nights, which makes the place f
 Even hours later, it was still delicious. That's usually how I know a cookie is really good, because some cookies are only good when they're fresh and warm, but this one actually held up.
 
 The staff was great too, and the apple hand pie was also good. Really, really good.`,
-    notes: "Home of the best chocolate chip cookie on the trail — the apple hand pie is great too."
+    notes: "Home of the best chocolate chip cookie on the trail. The apple hand pie is great too."
   },
   {
     slug: "tous-les-jours",
@@ -350,7 +260,7 @@ The staff was great too, and the apple hand pie was also good. Really, really go
     lng: -76.6025563,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 8,
     favorite: false,
     superlative: null,
     review: null,
@@ -365,7 +275,7 @@ The staff was great too, and the apple hand pie was also good. Really, really go
     lng: -76.6032368,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
     review: null,
@@ -380,7 +290,7 @@ The staff was great too, and the apple hand pie was also good. Really, really go
     lng: -76.6048157,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
     review: null,
@@ -395,7 +305,7 @@ The staff was great too, and the apple hand pie was also good. Really, really go
     lng: -76.6044545,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 8,
     favorite: false,
     superlative: null,
     review: null,
@@ -437,7 +347,7 @@ I will begin by saying that the place had very nice workers, although there was 
 It had a lingering taste, a terrible chalky texture, and was somehow simultaneously too sweet. The brownie was alright, and for anyone who is vegan, this is probably a great option.
 
 Although I don't think I would ever personally go out of my way to eat here, I do respect the practice.`,
-    notes: "A fully vegan bakery — nice staff, but the chocolate chip cookie wasn't for me."
+    notes: "A fully vegan bakery. Nice staff, but the chocolate chip cookie wasn't for me."
   },
   {
     slug: "woodlea-bakery-bel-air",
@@ -456,7 +366,7 @@ Although I don't think I would ever personally go out of my way to eat here, I d
 They weren't exceptional and honestly a tad dry, however Woodlea clearly specializes in cake, which is noticeable in their amazing cupcakes and cake slices. Their carrot cake was some of the best I've ever had.
 
 The customer service was also on par. They were super helpful.`,
-    notes: "Skip the cookies, get the carrot cake — some of the best I've had."
+    notes: "Skip the cookies, get the carrot cake, some of the best I've had."
   },
   {
     slug: "cozy-cookies",
@@ -467,7 +377,7 @@ The customer service was also on par. They were super helpful.`,
     lng: -76.3499324,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 5,
     favorite: false,
     superlative: null,
     review: null,
@@ -482,7 +392,7 @@ The customer service was also on par. They were super helpful.`,
     lng: -76.6502186,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7.5,
     favorite: false,
     superlative: null,
     review: null,
@@ -501,7 +411,7 @@ The customer service was also on par. They were super helpful.`,
     favorite: false,
     superlative: null,
     review: null,
-    notes: "Provisional name match (possibly \"Types Artisanal\") — worth double-checking."
+    notes: "Provisional name match (possibly \"Types Artisanal\"), worth double-checking."
   },
   {
     slug: "morning-birds-bakery",
@@ -512,7 +422,7 @@ The customer service was also on par. They were super helpful.`,
     lng: -113.9965225,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 9,
     favorite: false,
     superlative: null,
     review: null,
@@ -527,7 +437,7 @@ The customer service was also on par. They were super helpful.`,
     lng: -77.3035658,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 9.5,
     favorite: false,
     superlative: null,
     review: null,
@@ -549,23 +459,8 @@ The customer service was also on par. They were super helpful.`,
     notes: ""
   },
   {
-    slug: "the-happy-tart",
-    name: "The Happy Tart",
-    city: "Falls Church, VA",
-    address: "410 S Maple Ave, Unit 110, Falls Church, VA 22046",
-    lat: 38.8805862,
-    lng: -77.1773299,
-    visited: true,
-    dateVisited: null,
-    score: null,
-    favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
-  },
-  {
     slug: "dangerously-delicious-pies-hampden",
-    name: "Dangerously Delicious Pies",
+    name: "Dangerously Delicious Pies, Hampden",
     city: "Baltimore, MD",
     address: "810 W 36th St, Baltimore, MD 21211",
     lat: 39.3313514,
@@ -643,6 +538,6 @@ Looking back, Shilla is really where this whole bakery obsession began. I went t
 So maybe it wasn't the undisputed best bakery in the world.
 
 But it did start the journey.`,
-    notes: "The bakery that started this whole trail — home of an unbeatable cream-filled bun."
+    notes: "The bakery that started this whole trail, home of an unbeatable cream-filled bun."
   }
 ];

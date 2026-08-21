@@ -1,4 +1,4 @@
-/* baltimorebakeryblog — shared data and rendering helpers.
+/* baltimorebakeryblog: shared data and rendering helpers.
    Loaded with `defer` after data.js on every public page. */
 
 function byName(list) {

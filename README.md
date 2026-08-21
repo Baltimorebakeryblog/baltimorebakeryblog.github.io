@@ -35,24 +35,24 @@ layout shift; only the map page loads Leaflet.
 
 ## Project files
 
-- `data.js` — the single source of truth for bakery facts; edit this for
+- `data.js`: the single source of truth for bakery facts; edit this for
   routine content updates.
-- `app.js` — shared sorting, formatting, escaping, counts, filtering, map, and
+- `app.js`: shared sorting, formatting, escaping, counts, filtering, map, and
   page-rendering helpers.
-- `style.css` — the complete responsive design system.
-- `index.html` — editorial home page and live trail overview.
-- `bakeries.html` — searchable and filterable visited-bakery directory.
-- `rankings.html` — scored standings and category winners.
-- `map.html` — Leaflet map plus a complete accessible text directory.
-- `to-visit.html` — searchable bakery backlog.
-- `review.html` — detail template rendered with `review.html?id=slug`.
-- `blog.html` — journal index for essays and longer field notes.
-- `why-i-started-a-bakery-blog.html` — the first long-form journal entry.
-- `dangerously-delicious-pies.html` — journal entry on the (since-closed)
+- `style.css`: the complete responsive design system.
+- `index.html`: editorial home page and live trail overview.
+- `bakeries.html`: searchable and filterable visited-bakery directory.
+- `rankings.html`: scored standings and category winners.
+- `map.html`: Leaflet map plus a complete accessible text directory.
+- `to-visit.html`: searchable bakery backlog.
+- `review.html`: detail template rendered with `review.html?id=slug`.
+- `blog.html`: journal index for essays and longer field notes.
+- `why-i-started-a-bakery-blog.html`: the first long-form journal entry.
+- `dangerously-delicious-pies.html`: journal entry on the (since-closed)
   Hampden pie shop.
-- `shilla-bakery.html` — journal entry on the Ellicott City bakery that
+- `shilla-bakery.html`: journal entry on the Ellicott City bakery that
   started the trail.
-- `the-perfect-chocolate-chip-cookie.html` — journal entry chasing the
+- `the-perfect-chocolate-chip-cookie.html`: journal entry chasing the
   best chocolate chip cookie across six bakeries.
 
 ## Add or update a bakery
@@ -94,8 +94,8 @@ node --check app.js
 node --check data.js
 ```
 
-There is no automated link or accessibility checker in this project yet —
-review new pages by eye against the patterns above (skip link, main landmark,
+There is no automated link or accessibility checker in this project yet.
+Review new pages by eye against the patterns above (skip link, main landmark,
 labelled navigation, active-page state on the nav, deferred local scripts,
 responsive/focus/reduced-motion CSS hooks) before publishing.
 
