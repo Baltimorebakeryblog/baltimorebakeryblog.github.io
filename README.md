@@ -48,7 +48,12 @@ layout shift; only the map page loads Leaflet.
 - `review.html` — detail template rendered with `review.html?id=slug`.
 - `blog.html` — journal index for essays and longer field notes.
 - `why-i-started-a-bakery-blog.html` — the first long-form journal entry.
-- `tests/site-check.mjs` — dependency-free static site validation.
+- `dangerously-delicious-pies.html` — journal entry on the (since-closed)
+  Hampden pie shop.
+- `shilla-bakery.html` — journal entry on the Ellicott City bakery that
+  started the trail.
+- `the-perfect-chocolate-chip-cookie.html` — journal entry chasing the
+  best chocolate chip cookie across six bakeries.
 
 ## Add or update a bakery
 
@@ -82,20 +87,17 @@ python3 -m http.server 8000
 Then open `http://localhost:8000/`. You can also open the HTML files directly;
 everything except network-hosted Leaflet assets and map tiles will still work.
 
-Run the exact quality checks before publishing:
+Run a syntax check before publishing:
 
 ```bash
 node --check app.js
 node --check data.js
-node tests/site-check.mjs
 ```
 
-The checker uses only Node built-in modules. It deliberately exits nonzero for
-missing local assets or broken internal HTML links, and also verifies metadata,
-skip links, main landmarks, labelled navigation, active-page semantics,
-deferred local scripts, and responsive/focus/reduced-motion CSS hooks. These
-checks protect the no-build GitHub Pages workflow from quiet link and
-accessibility regressions.
+There is no automated link or accessibility checker in this project yet —
+review new pages by eye against the patterns above (skip link, main landmark,
+labelled navigation, active-page state on the nav, deferred local scripts,
+responsive/focus/reduced-motion CSS hooks) before publishing.
 
 ## Publish with GitHub Pages
 

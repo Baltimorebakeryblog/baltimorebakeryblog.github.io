@@ -637,10 +637,16 @@ h3 {
 .journal-card {
   display: grid;
   overflow: hidden;
-  grid-template-columns: auto minmax(0, 1.25fr) minmax(15rem, 0.6fr);
+  grid-template-columns: auto minmax(0, 1fr);
   border: 1px solid var(--rule);
   border-radius: var(--radius-large);
   background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+
+.journal-card--featured {
+  grid-template-columns: auto minmax(0, 1.25fr) minmax(15rem, 0.6fr);
+  border-color: var(--brick-dark);
   box-shadow: var(--shadow);
 }
 

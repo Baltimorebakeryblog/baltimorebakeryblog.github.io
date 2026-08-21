@@ -389,7 +389,7 @@ function renderMap() {
       className: "trail-pin-wrap",
       html: `<span class="trail-pin ${visited ? "trail-pin--visited" : "trail-pin--planned"}" aria-hidden="true"></span>`,
       iconSize: [22, 22],
-      iconAnchor: [11, 11]
+      iconAnchor: [11, 22]
     });
 
     withCoordinates.forEach((bakery) => {

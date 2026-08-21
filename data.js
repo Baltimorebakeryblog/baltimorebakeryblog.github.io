@@ -28,11 +28,11 @@
                 and as a placeholder until `review` is written. Also
                 used for "Bakeries to Visit" as a reason/reminder note.
 
-  The 33 entries below are all marked visited with coordinates geocoded
-  from the addresses you gave me. None have a score, date, or review yet —
-  add those whenever you're ready and they'll show up on Home/Rankings
-  automatically. Everything below is easy to find and edit: just search
-  for the bakery's name.
+  The 35 entries below are all marked visited with coordinates geocoded
+  from the addresses you gave me. Several now have a score, date, and
+  review; the rest will show up on Home/Rankings automatically as soon
+  as you add those fields. Everything below is easy to find and edit:
+  just search for the bakery's name.
 */
 
 const BAKERIES = [
@@ -149,7 +149,7 @@ const BAKERIES = [
     lat: 39.3686075,
     lng: -76.5469390,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-06-13",
     score: 8,
     favorite: false,
     superlative: null,
@@ -258,7 +258,7 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
     lat: 39.2799023,
     lng: -76.5743220,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-08-15",
     score: 9.5,
     favorite: true,
     superlative: null,
@@ -298,7 +298,7 @@ Café Dear Leon is one of those bakeries where I can keep coming back and still 
     lat: 39.2852011,
     lng: -76.5993223,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-06-13",
     score: 7,
     favorite: false,
     superlative: null,
@@ -330,7 +330,7 @@ They also have a lot of baking supplies and date nights, which makes the place f
     lat: 39.2865562,
     lng: -76.6008862,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-06-13",
     score: 9,
     favorite: false,
     superlative: "Best Chocolate Chip Cookie",
@@ -409,7 +409,7 @@ The staff was great too, and the apple hand pie was also good. Really, really go
     lat: 39.3307464,
     lng: -76.6296052,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-06-13",
     score: null,
     favorite: false,
     superlative: null,
@@ -426,7 +426,7 @@ I had the chocolate chip cookie, which was pretty good. I loved the madeleine, w
     lat: 39.3298274,
     lng: -76.6295496,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-06-13",
     score: 3,
     favorite: false,
     superlative: null,
@@ -447,7 +447,7 @@ Although I don't think I would ever personally go out of my way to eat here, I d
     lat: 39.5282841,
     lng: -76.3543285,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2026-06-13",
     score: 7,
     favorite: false,
     superlative: null,
@@ -571,7 +571,7 @@ The customer service was also on par. They were super helpful.`,
     lat: 39.3313514,
     lng: -76.6299600,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2025-11-08",
     score: 10,
     favorite: true,
     superlative: "Best Pie",
@@ -618,7 +618,7 @@ My heart will always be with you, Pie Man.`,
     lat: 39.2771163,
     lng: -76.8345147,
     visited: true,
-    dateVisited: null,
+    dateVisited: "2023-05-06",
     score: 8.5,
     favorite: true,
     superlative: "Best Cream Bun",
