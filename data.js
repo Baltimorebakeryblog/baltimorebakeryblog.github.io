@@ -150,11 +150,15 @@ const BAKERIES = [
     lng: -76.5469390,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 8,
     favorite: false,
     superlative: null,
-    review: null,
-    notes: ""
+    review: `Great atmosphere, nice little place, homemade donuts, and a really nice worker.
+
+The donuts were amazing, honestly some of the best I've had. I tried the marshmallow donut and the jelly-filled donut, and both were perfect for what Fenwick is trying to be: a classic donut place.
+
+I also hear the beignets are amazing, so I definitely need to go back.`,
+    notes: "Classic Baltimore donut shop — the marshmallow and jelly-filled donuts are excellent."
   },
   {
     slug: "grace-bakery",
@@ -255,11 +259,21 @@ const BAKERIES = [
     lng: -76.5743220,
     visited: true,
     dateVisited: null,
-    score: null,
-    favorite: false,
+    score: 9.5,
+    favorite: true,
     superlative: null,
-    review: null,
-    notes: ""
+    review: `Oh my god, this place is amazing. I've become a regular here, and whenever one of my friends asks me for a bakery recommendation, Café Dear Leon is usually the first place I mention.
+
+At this point, I've tried a lot of the menu: the crab bagel, the Frank, different tarts, the Italian cold cut, the crab Tamago sandwich, monkey bread, banana pudding, chocolate chip cookies, and several cream-filled pastries. Nearly everything I've had has been great.
+
+The only thing I really didn't like was a liquor cherry cookie. The alcohol flavor was way too strong for me, and it was strangely salty at the same time. It honestly tasted a little like a margarita in cookie form.
+
+One of the things that surprised me most about Café Dear Leon is the value. For the quality of the pastries and food, I think the prices are actually pretty reasonable compared with a lot of other bakeries I've visited.
+
+There is almost always a line when I go, but I think that says something about how loved the place is. Their coffee is also amazing. They use Ceremony Coffee — fun fact about me, I used to make my own iced coffee at home using Ceremony beans.
+
+Café Dear Leon is one of those bakeries where I can keep coming back and still find something new to try. The food is consistently great, the coffee is excellent, and there's a reason I recommend it so often.`,
+    notes: "A regular stop — incredible pastries, Ceremony coffee, and prices that still feel fair."
   },
   {
     slug: "b-more-pies-and-sweets",
@@ -285,11 +299,13 @@ const BAKERIES = [
     lng: -76.5993223,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
-    review: null,
-    notes: ""
+    review: `The chocolate chip cookie was alright, but the real star of the show was the crème brûlée donut, which was an original concept.
+
+They also have a lot of baking supplies and date nights, which makes the place feel like more than just a bakery.`,
+    notes: "The crème brûlée donut is the move — plus baking supplies and date nights on offer."
   },
   {
     slug: "baltoz-bakery",
@@ -315,11 +331,15 @@ const BAKERIES = [
     lng: -76.6008862,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 9,
     favorite: false,
-    superlative: null,
-    review: null,
-    notes: ""
+    superlative: "Best Chocolate Chip Cookie",
+    review: `Best chocolate chip cookie I had.
+
+Even hours later, it was still delicious. That's usually how I know a cookie is really good, because some cookies are only good when they're fresh and warm, but this one actually held up.
+
+The staff was great too, and the apple hand pie was also good. Really, really good.`,
+    notes: "Home of the best chocolate chip cookie on the trail — the apple hand pie is great too."
   },
   {
     slug: "tous-les-jours",
@@ -393,8 +413,10 @@ const BAKERIES = [
     score: null,
     favorite: false,
     superlative: null,
-    review: null,
-    notes: "This bakery has since closed."
+    review: `Nice atmosphere. The owner was there, along with who I believe to be their daughter.
+
+I had the chocolate chip cookie, which was pretty good. I loved the madeleine, which was perfect and soft.`,
+    notes: "This bakery has since closed. The madeleine was perfect and soft."
   },
   {
     slug: "harmony-bakery",
@@ -405,11 +427,17 @@ const BAKERIES = [
     lng: -76.6295496,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 3,
     favorite: false,
     superlative: null,
-    review: null,
-    notes: ""
+    review: `Now my criticism for this bakery, as for all bakeries, stems from individual taste.
+
+I will begin by saying that the place had very nice workers, although there was somewhat of a scent lingering in the place. Something I didn't realize inside, but did soon after tasting it, was that it is vegan. That isn't necessarily a deal breaker, but the chocolate chip cookie left a lot to be wanted.
+
+It had a lingering taste, a terrible chalky texture, and was somehow simultaneously too sweet. The brownie was alright, and for anyone who is vegan, this is probably a great option.
+
+Although I don't think I would ever personally go out of my way to eat here, I do respect the practice.`,
+    notes: "A fully vegan bakery — nice staff, but the chocolate chip cookie wasn't for me."
   },
   {
     slug: "woodlea-bakery-bel-air",
@@ -420,11 +448,15 @@ const BAKERIES = [
     lng: -76.3543285,
     visited: true,
     dateVisited: null,
-    score: null,
+    score: 7,
     favorite: false,
     superlative: null,
-    review: null,
-    notes: ""
+    review: `The cookies were small and sold separately, but for a cheap and reasonable price.
+
+They weren't exceptional and honestly a tad dry, however Woodlea clearly specializes in cake, which is noticeable in their amazing cupcakes and cake slices. Their carrot cake was some of the best I've ever had.
+
+The customer service was also on par. They were super helpful.`,
+    notes: "Skip the cookies, get the carrot cake — some of the best I've had."
   },
   {
     slug: "cozy-cookies",
@@ -530,5 +562,87 @@ const BAKERIES = [
     superlative: null,
     review: null,
     notes: ""
+  },
+  {
+    slug: "dangerously-delicious-pies-hampden",
+    name: "Dangerously Delicious Pies",
+    city: "Baltimore, MD",
+    address: "810 W 36th St, Baltimore, MD 21211",
+    lat: 39.3313514,
+    lng: -76.6299600,
+    visited: true,
+    dateVisited: null,
+    score: 10,
+    favorite: true,
+    superlative: "Best Pie",
+    review: `At the beginning of my bakery journey, I went to my first hardcore concert. By the end of the night, I was sweaty, tired, and incredibly hungry. This is how I accidentally found what would become one of my favorite spots ever: Dangerously Delicious Pies.
+
+Unfortunately, both locations are now closed, but I don't think that's any less of a reason to talk about it.
+
+After a long night at the Ottobar, I went over to The Charmery to get some ice cream. Across the street, though, I noticed this almost ominous looking red building. So, with my ice cream still in hand, I walked over and stepped inside.
+
+Dangerously Delicious Pies.
+
+And wow, were they right about the name.
+
+I asked the man working there, probably almost 60 years old, whether I should get the strawberry rhubarb pie or the Baltimore Mud pie. I have never seen someone develop such a serious expression while talking about pie.
+
+He looked at me and said, "You're talking about two completely different beasts."
+
+He said it with the expression of an exorcist, or maybe a soldier coming back from war.
+
+What followed was an interrogation. He asked me a series of questions: how I felt about pie crust, sweet versus savory, whether I had ever tried rhubarb before.
+
+Finally, with the precision of a surgeon, he grabbed me a warmed slice of strawberry rhubarb pie.
+
+I took it outside and sat in the pitch-black darkness, only faintly illuminated by the sidewalk lamps, and dug into it.
+
+It was delicious.
+
+The pie was warm, sweet and tart, and paired with whipped cream that was so ridiculously rich it was practically heaven. Maybe being exhausted and starving after a concert made it taste even better, but I don't care.
+
+I ended up going back three more times.
+
+Unfortunately, the last time I tried to return, I found out the locations had closed.
+
+Nonetheless, it was great.
+
+My heart will always be with you, Pie Man.`,
+    notes: "This bakery has since closed. Read the full story in the journal."
+  },
+  {
+    slug: "shilla-bakery-ellicott-city",
+    name: "Shilla Bakery",
+    city: "Ellicott City, MD",
+    address: "9339 Baltimore National Pike, Ellicott City, MD 21042",
+    lat: 39.2771163,
+    lng: -76.8345147,
+    visited: true,
+    dateVisited: null,
+    score: 8.5,
+    favorite: true,
+    superlative: "Best Cream Bun",
+    review: `The one that started the whole thing.
+
+I had a very dear friend of mine who I hadn't seen in a long time, and every time we talked, they somehow brought up Shilla Bakery. The way they described it, this bakery was seemingly incomparable to anything else. The greatest bakery known to man.
+
+So, with a driver's permit and a dream, I set off on a journey to find the alleged best bakery in the world.
+
+I went to the location in Ellicott City and got a cream-filled bun, a red bean donut, and a slice of strawberry cake before heading back home.
+
+And I have to admit, my friend was onto something.
+
+Shilla is a traditional Korean bakery, so a lot of the pastries aren't nearly as sweet as what you would find at a typical American bakery. Everything was extremely affordable, simple, and delicious. The bakery itself also had this incredibly homey atmosphere, and everyone there was very kind.
+
+But out of everything I tried, the cream filled bun is what stuck with me.
+
+Every time I go to Ellicott City now, I try to grab one. There's really nothing complicated about it. It's just a soft bun filled with cream, but its simplicity is absolutely perfect. It doesn't need to be anything more than what it is.
+
+Looking back, Shilla is really where this whole bakery obsession began. I went there because someone I cared about wouldn't stop talking about it, and somehow that one trip turned into me driving all over the place looking for bakeries.
+
+So maybe it wasn't the undisputed best bakery in the world.
+
+But it did start the journey.`,
+    notes: "The bakery that started this whole trail — home of an unbeatable cream-filled bun."
   }
 ];
