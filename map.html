@@ -66,24 +66,48 @@
     });
   }
 
-  const bounds = [];
+  // Pins outside Maryland (e.g. travel stops) would otherwise force the
+  // default view to zoom way out to fit them. So the initial view fits
+  // only the Maryland cluster; every pin still gets placed on the map,
+  // and out-of-state ones are just a scroll/zoom away.
+  const mdBounds = [];
+  const allBounds = [];
+  let outOfStateCount = 0;
+
   withCoords.forEach(b => {
     const color = b.visited ? "#b5533c" : "#8a9a7a";
     const marker = L.marker([b.lat, b.lng], { icon: pinIcon(color) }).addTo(map);
     const scoreLine = b.visited ? `Score: ${formatScore(b.score)}` : "Not visited yet";
     const link = b.visited ? `<br><a href="${reviewLink(b)}">Read review &rarr;</a>` : "";
     marker.bindPopup(`<strong>${b.name}</strong><br>${b.city}<br>${scoreLine}${link}`);
-    bounds.push([b.lat, b.lng]);
+
+    const isMaryland = /,\s*MD$/i.test((b.city || "").trim());
+    allBounds.push([b.lat, b.lng]);
+    if (isMaryland) {
+      mdBounds.push([b.lat, b.lng]);
+    } else {
+      outOfStateCount++;
+    }
   });
 
-  if (bounds.length) {
-    map.fitBounds(bounds, { padding: [30, 30], maxZoom: 11 });
+  const boundsToFit = mdBounds.length ? mdBounds : allBounds;
+  if (boundsToFit.length) {
+    map.fitBounds(boundsToFit, { padding: [30, 30], maxZoom: 11 });
   }
 
-  if (withoutCoords > 0) {
-    document.getElementById("no-coords").textContent =
-      `${withoutCoords} ${withoutCoords === 1 ? "bakery doesn't" : "bakeries don't"} have coordinates yet, so ${withoutCoords === 1 ? "it isn't" : "they aren't"} pinned above. Add lat/lng in data.js to place them.`;
+  const noCoordsEl = document.getElementById("no-coords");
+  const notes = [];
+  if (outOfStateCount > 0) {
+    notes.push(
+      `${outOfStateCount} ${outOfStateCount === 1 ? "bakery is" : "bakeries are"} outside Maryland (travel stops), so the map opens zoomed to the Maryland cluster — zoom or scroll out to find ${outOfStateCount === 1 ? "it" : "them"}.`
+    );
   }
+  if (withoutCoords > 0) {
+    notes.push(
+      `${withoutCoords} ${withoutCoords === 1 ? "bakery doesn't" : "bakeries don't"} have coordinates yet, so ${withoutCoords === 1 ? "it isn't" : "they aren't"} pinned above. Add lat/lng in data.js to place them.`
+    );
+  }
+  noCoordsEl.textContent = notes.join(" ");
 </script>
 </body>
 </html>
