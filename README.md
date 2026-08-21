@@ -46,6 +46,8 @@ layout shift; only the map page loads Leaflet.
 - `map.html` — Leaflet map plus a complete accessible text directory.
 - `to-visit.html` — searchable bakery backlog.
 - `review.html` — detail template rendered with `review.html?id=slug`.
+- `blog.html` — journal index for essays and longer field notes.
+- `why-i-started-a-bakery-blog.html` — the first long-form journal entry.
 - `tests/site-check.mjs` — dependency-free static site validation.
 
 ## Add or update a bakery
