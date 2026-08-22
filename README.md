@@ -54,6 +54,10 @@ layout shift; only the map page loads Leaflet.
   started the trail.
 - `the-perfect-chocolate-chip-cookie.html`: journal entry chasing the
   best chocolate chip cookie across six bakeries.
+- `404.html`: GitHub Pages custom not-found page, styled to match the rest
+  of the site.
+- `robots.txt` / `sitemap.xml`: crawler access and a list of canonical
+  page URLs for search engines.
 
 ## Add or update a bakery
 

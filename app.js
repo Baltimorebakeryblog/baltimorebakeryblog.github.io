@@ -429,10 +429,14 @@ function renderMap() {
   }
 }
 
-function setReviewMetadata(title, description) {
+function setReviewMetadata(title, description, ogTitle) {
   document.title = title;
   const meta = document.querySelector('meta[name="description"]');
   if (meta) meta.setAttribute("content", description);
+  const ogTitleTag = document.querySelector('meta[property="og:title"]');
+  if (ogTitleTag) ogTitleTag.setAttribute("content", ogTitle);
+  const ogDescriptionTag = document.querySelector('meta[property="og:description"]');
+  if (ogDescriptionTag) ogDescriptionTag.setAttribute("content", description);
 }
 
 function renderReview() {
@@ -443,7 +447,8 @@ function renderReview() {
   if (!bakery) {
     setReviewMetadata(
       "Bakery not found | baltimorebakeryblog",
-      "That bakery could not be found. Return to the baltimorebakeryblog directory to explore Maryland bakery stops."
+      "That bakery could not be found. Return to the baltimorebakeryblog directory to explore Maryland bakery stops.",
+      "Bakery not found"
     );
     content.innerHTML = `
       <section class="not-found" aria-labelledby="not-found-title">
@@ -457,7 +462,8 @@ function renderReview() {
 
   setReviewMetadata(
     `${bakery.name} | baltimorebakeryblog`,
-    `Trail details for ${bakery.name} in ${bakery.city || "the bakery guide"}, including available visit notes, score, and location information.`
+    `Trail details for ${bakery.name} in ${bakery.city || "the bakery guide"}, including available visit notes, score, and location information.`,
+    bakery.name
   );
   const visitDate = formatDate(bakery.dateVisited);
   const facts = [
