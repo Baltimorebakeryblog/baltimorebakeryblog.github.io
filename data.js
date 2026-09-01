@@ -27,6 +27,18 @@
   notes         a short one- or two-sentence blurb, used in list views
                 and as a placeholder until `review` is written. Also
                 used for "Bakeries to Visit" as a reason/reminder note.
+  brand         optional. Only set this when the SAME bakery has more
+                than one location entry (e.g. two branches of one
+                shop). Give every location of that bakery the exact
+                same `brand` slug so Rankings and Home can show one
+                consolidated entry instead of counting each location
+                separately. Leave it out entirely for a bakery with
+                just one location; it will group by its own `slug`.
+  brandName     optional, only used alongside `brand`. The clean
+                display name for the consolidated entry (e.g.
+                "Ovenbird Bakery" instead of "Ovenbird Bakery, Little
+                Italy"). Give every location of that bakery the same
+                `brandName` too.
 
   The 28 entries below are all marked visited with coordinates geocoded
   from the addresses you gave me. Several now have a score, date, and
@@ -133,6 +145,8 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
   {
     slug: "woodlea-bakery-baltimore",
     name: "Woodlea Bakery (Baltimore)",
+    brand: "woodlea-bakery",
+    brandName: "Woodlea Bakery",
     city: "Baltimore, MD",
     address: "4905 Belair Rd, Baltimore, MD 21206",
     lat: 39.3344717,
@@ -148,6 +162,8 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
   {
     slug: "ovenbird-bakery-highlandtown",
     name: "Ovenbird Bakery, Highlandtown",
+    brand: "ovenbird-bakery",
+    brandName: "Ovenbird Bakery",
     city: "Baltimore, MD",
     address: "3925 Gough St, Suite 2, Baltimore, MD 21224",
     lat: 39.2884796,
@@ -188,6 +204,8 @@ Café Dear Leon is one of those bakeries where I can keep coming back and still 
   {
     slug: "dangerously-delicious-pies-canton",
     name: "Dangerously Delicious Pies, Canton",
+    brand: "dangerously-delicious-pies",
+    brandName: "Dangerously Delicious Pies",
     city: "Baltimore, MD",
     address: "2839 O'Donnell St, Baltimore, MD 21224",
     lat: 39.2798679,
@@ -235,6 +253,8 @@ They also have a lot of baking supplies and date nights, which makes the place f
   {
     slug: "ovenbird-bakery-little-italy",
     name: "Ovenbird Bakery, Little Italy",
+    brand: "ovenbird-bakery",
+    brandName: "Ovenbird Bakery",
     city: "Baltimore, MD",
     address: "300 S Exeter St, Baltimore, MD 21202",
     lat: 39.2865562,
@@ -352,6 +372,8 @@ Although I don't think I would ever personally go out of my way to eat here, I d
   {
     slug: "woodlea-bakery-bel-air",
     name: "Woodlea Bakery (Bel Air)",
+    brand: "woodlea-bakery",
+    brandName: "Woodlea Bakery",
     city: "Bel Air, MD",
     address: "548 Baltimore Pike, Bel Air, MD 21014",
     lat: 39.5282841,
@@ -461,6 +483,8 @@ The customer service was also on par. They were super helpful.`,
   {
     slug: "dangerously-delicious-pies-hampden",
     name: "Dangerously Delicious Pies, Hampden",
+    brand: "dangerously-delicious-pies",
+    brandName: "Dangerously Delicious Pies",
     city: "Baltimore, MD",
     address: "810 W 36th St, Baltimore, MD 21211",
     lat: 39.3313514,

@@ -71,6 +71,10 @@ model. Keep these rules in mind:
   are shown as field notes, followed by a review-coming-soon state.
 - Set `visited: false` for a planned stop. It appears on To Visit rather than
   in the visited directory and rankings.
+- If a bakery has more than one location, give every location entry the same
+  `brand` slug and `brandName`. Rankings and Home then show one consolidated
+  entry for that bakery instead of counting each location separately, while
+  the directory, map, and to-visit pages still list every location on its own.
 
 No bakery object or fact needs to be copied into an HTML page. Updating
 `data.js` updates the experience everywhere.

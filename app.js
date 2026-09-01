@@ -14,7 +14,7 @@ function toVisitList() {
 }
 
 function favorites() {
-  return visitedBakeries().filter((bakery) => bakery.favorite);
+  return consolidatedByBrand(visitedBakeries().filter((bakery) => bakery.favorite));
 }
 
 function newestReviews(limit) {
@@ -24,16 +24,46 @@ function newestReviews(limit) {
     .slice(0, limit);
 }
 
+function brandKey(bakery) {
+  return bakery.brand || bakery.slug;
+}
+
+function groupByBrand(list) {
+  const groups = new Map();
+  list.forEach((bakery) => {
+    const key = brandKey(bakery);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(bakery);
+  });
+  return [...groups.values()];
+}
+
+function averageScore(group) {
+  const scores = group.map((bakery) => bakery.score).filter((score) => typeof score === "number");
+  if (!scores.length) return null;
+  return Math.round((scores.reduce((sum, score) => sum + score, 0) / scores.length) * 10) / 10;
+}
+
+function consolidateBrand(group) {
+  const primary = group.find((bakery) => hasText(bakery.superlative))
+    || group.find((bakery) => hasText(bakery.review))
+    || group[0];
+  const name = hasText(primary.brand) ? (primary.brandName || primary.name) : primary.name;
+  return { ...primary, name, score: averageScore(group) };
+}
+
+function consolidatedByBrand(list) {
+  return groupByBrand(list).map(consolidateBrand);
+}
+
 function topScored(limit) {
-  return [...visitedBakeries()]
-    .filter((bakery) => typeof bakery.score === "number")
+  return consolidatedByBrand(visitedBakeries().filter((bakery) => typeof bakery.score === "number"))
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 }
 
 function superlatives() {
-  return visitedBakeries()
-    .filter((bakery) => hasText(bakery.superlative))
+  return consolidatedByBrand(visitedBakeries().filter((bakery) => hasText(bakery.superlative)))
     .sort((a, b) => a.superlative.localeCompare(b.superlative));
 }
 
