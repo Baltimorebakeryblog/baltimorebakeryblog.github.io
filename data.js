@@ -1,5 +1,5 @@
 /*
-  The Old Line Bakery Trail: bakery data
+  baltimorebakeryblog: bakery data
   ----------------------------------------
   This is the ONLY file you need to edit to add or update a bakery.
   Every page (Home, All Bakeries, Rankings, Map, Bakeries to Visit) reads
@@ -174,7 +174,7 @@ I also hear the beignets are amazing, so I definitely need to go back.`,
     favorite: false,
     superlative: null,
     review: null,
-    notes: "Same bakery as the Little Italy location, home of the best chocolate chip cookie on the trail."
+    notes: "Same bakery as the Little Italy location, home of the best chocolate chip cookie in Baltimore."
   },
   {
     slug: "cafe-dear-leon",
@@ -199,7 +199,7 @@ One of the things that surprised me most about Café Dear Leon is the value. For
 There is almost always a line when I go, but I think that says something about how loved the place is. Their coffee is also amazing. They use Ceremony Coffee (fun fact about me: I used to make my own iced coffee at home using Ceremony beans).
 
 Café Dear Leon is one of those bakeries where I can keep coming back and still find something new to try. The food is consistently great, the coffee is excellent, and there's a reason I recommend it so often.`,
-    notes: "A regular stop with incredible pastries, Ceremony coffee, and prices that still feel fair."
+    notes: "A regular favorite with incredible pastries, Ceremony coffee, and prices that still feel fair."
   },
   {
     slug: "dangerously-delicious-pies-canton",
@@ -269,7 +269,7 @@ They also have a lot of baking supplies and date nights, which makes the place f
 Even hours later, it was still delicious. That's usually how I know a cookie is really good, because some cookies are only good when they're fresh and warm, but this one actually held up.
 
 The staff was great too, and the apple hand pie was also good. Really, really good.`,
-    notes: "Home of the best chocolate chip cookie on the trail. The apple hand pie is great too."
+    notes: "Home of the best chocolate chip cookie in Baltimore. The apple hand pie is great too."
   },
   {
     slug: "tous-les-jours",
@@ -562,6 +562,6 @@ Looking back, Shilla is really where this whole bakery obsession began. I went t
 So maybe it wasn't the undisputed best bakery in the world.
 
 But it did start the journey.`,
-    notes: "The bakery that started this whole trail, home of an unbeatable cream-filled bun."
+    notes: "The bakery that started this whole hobby, home of an unbeatable cream-filled bun."
   }
 ];

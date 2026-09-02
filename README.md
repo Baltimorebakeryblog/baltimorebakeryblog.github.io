@@ -1,7 +1,7 @@
 # baltimorebakeryblog
 
 baltimorebakeryblog is a warm, independent guide to bakeries around
-Baltimore, across Maryland, and at the occasional travel stop. It combines a
+Baltimore, across Maryland, and nearby. It combines a
 searchable directory, honest developing rankings, an interactive map with a
 text fallback, a future-visit list, and readable bakery detail pages.
 
@@ -13,15 +13,15 @@ still happen in one place: `data.js`.
 ## Visitor experience
 
 - Home explains the guide immediately, links to the directory and map in the
-  opening view, and calculates trail counts directly from the bakery records.
+  opening view, and calculates bakery counts directly from the bakery records.
 - The bakery directory searches names and cities case-insensitively. Visitors
   can also filter by location or editorial state, see a live result count,
   clear every choice at once, and recover from a no-results search.
 - Rankings clearly separate numeric scores from category winners and provide
   useful onward routes while either collection is still being assembled.
-- The To Visit page searches planned stops by name or city and keeps their
+- The To Visit page searches planned bakeries by name or city and keeps their
   locations and available notes easy to scan.
-- The map distinguishes visited and planned stops with text and symbols as
+- The map distinguishes visited and planned bakeries with text and symbols as
   well as color. Its complete text directory remains useful if Leaflet, map
   tiles, or coordinates are unavailable.
 - Bakery detail pages show only recorded facts, provide encoded Google Maps
@@ -40,18 +40,18 @@ layout shift; only the map page loads Leaflet.
 - `app.js`: shared sorting, formatting, escaping, counts, filtering, map, and
   page-rendering helpers.
 - `style.css`: the complete responsive design system.
-- `index.html`: editorial home page and live trail overview.
+- `index.html`: editorial home page and live bakery overview.
 - `bakeries.html`: searchable and filterable visited-bakery directory.
 - `rankings.html`: scored standings and category winners.
 - `map.html`: Leaflet map plus a complete accessible text directory.
 - `to-visit.html`: searchable bakery backlog.
 - `review.html`: detail template rendered with `review.html?id=slug`.
-- `blog.html`: journal index for essays and longer field notes.
+- `blog.html`: journal index for essays.
 - `why-i-started-a-bakery-blog.html`: the first long-form journal entry.
 - `dangerously-delicious-pies.html`: journal entry on the (since-closed)
   Hampden pie shop.
 - `shilla-bakery.html`: journal entry on the Ellicott City bakery that
-  started the trail.
+  started it all.
 - `the-perfect-chocolate-chip-cookie.html`: journal entry chasing the
   best chocolate chip cookie across six bakeries.
 
@@ -68,9 +68,9 @@ model. Keep these rules in mind:
 - Leave `score` as `null` until a numeric score exists. The site displays an
   explicit pending state instead of inventing a rating.
 - Leave `review` as `null` until the full write-up is ready. Available `notes`
-  are shown as field notes, followed by a review-coming-soon state.
-- Set `visited: false` for a planned stop. It appears on To Visit rather than
-  in the visited directory and rankings.
+  are shown as short notes, followed by a review-coming-soon state.
+- Set `visited: false` for a bakery not yet visited. It appears on To Visit
+  rather than in the visited directory and rankings.
 - If a bakery has more than one location, give every location entry the same
   `brand` slug and `brandName`. Rankings and Home then show one consolidated
   entry for that bakery instead of counting each location separately, while

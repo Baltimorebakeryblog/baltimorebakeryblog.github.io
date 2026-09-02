@@ -127,7 +127,7 @@ function reviewState(bakery) {
   return "Review coming soon";
 }
 
-function trailCounts() {
+function bakeryCounts() {
   return groupByBrand(BAKERIES).reduce((counts, group) => {
     counts.total += 1;
     if (group.some((bakery) => bakery.visited)) counts.visited += 1;
@@ -141,35 +141,37 @@ function trailCounts() {
 
 function bakeryCardHtml(bakery) {
   const favorite = bakery.favorite
-    ? '<span class="status-chip status-chip--favorite">Trail favorite</span>'
-    : '<span class="status-chip">Not marked favorite</span>';
+    ? '<div class="status-row"><span class="status-chip status-chip--favorite">Favorite</span></div>'
+    : "";
   const notes = hasText(bakery.notes)
     ? `<p class="card-note">${escapeHtml(bakery.notes)}</p>`
     : "";
 
   return `
     <article class="bakery-card">
-      <div class="bakery-card__score">${scoreBadgeHtml(bakery.score)}</div>
       <div class="bakery-card__body">
-        <p class="eyebrow">${escapeHtml(reviewState(bakery))}</p>
+        <p class="card-label">${escapeHtml(reviewState(bakery))}</p>
         <h2>${bakeryLinkHtml(bakery)}</h2>
         <p class="location">${escapeHtml(bakery.city || "Location pending")}</p>
-        <div class="status-row">${favorite}</div>
+        ${favorite}
         ${notes}
       </div>
-      <a class="card-arrow" href="${escapeHtml(reviewLink(bakery))}" aria-label="View details for ${escapeHtml(bakery.name)}">View details <span aria-hidden="true">→</span></a>
+      <div class="bakery-card__meta">
+        ${scoreBadgeHtml(bakery.score)}
+        <a class="card-arrow" href="${escapeHtml(reviewLink(bakery))}" aria-label="View details for ${escapeHtml(bakery.name)}">View details <span aria-hidden="true">→</span></a>
+      </div>
     </article>`;
 }
 
 function renderHome() {
-  const counts = trailCounts();
+  const counts = bakeryCounts();
   const stats = [
     [counts.visited, "Visited"],
     [counts.mapped, "Mapped"],
     [counts.reviewed, "Full reviews"],
     [counts.backlog, "On the list"]
   ];
-  document.querySelector("#trail-stats").innerHTML = stats.map(([value, label]) => `
+  document.querySelector("#bakery-stats").innerHTML = stats.map(([value, label]) => `
     <div class="stat">
       <strong>${value}</strong>
       <span>${escapeHtml(label)}</span>
@@ -177,25 +179,25 @@ function renderHome() {
 
   const dated = newestReviews(3);
   const featured = dated.length ? dated : byName(visitedBakeries()).slice(0, 3);
-  const heading = document.querySelector("#dispatch-heading");
-  const intro = document.querySelector("#dispatch-intro");
+  const heading = document.querySelector("#recent-heading");
+  const intro = document.querySelector("#recent-intro");
   if (!dated.length) {
-    heading.textContent = "Meet a few trail stops";
-    intro.textContent = "Detailed tasting notes are still being assembled. Start with a few places already on the trail.";
+    heading.textContent = "Meet a few bakeries";
+    intro.textContent = "Detailed tasting notes are still being assembled. Start with a few places already visited.";
   }
 
-  document.querySelector("#home-dispatches").innerHTML = featured.length
+  document.querySelector("#home-recent").innerHTML = featured.length
     ? featured.map((bakery) => {
       const excerpt = hasText(bakery.notes)
         ? bakery.notes
         : hasText(bakery.review)
           ? bakery.review.split("\n\n")[0]
-          : "A visited stop with its full trail entry still to come.";
+          : "A visited bakery with its full write-up still to come.";
       const visitDate = formatDate(bakery.dateVisited);
       return `
         <article class="editorial-card">
           <div class="editorial-card__top">
-            <p class="eyebrow">${visitDate ? `Visited ${escapeHtml(visitDate)}` : escapeHtml(reviewState(bakery))}</p>
+            <p class="card-label">${visitDate ? `Visited ${escapeHtml(visitDate)}` : escapeHtml(reviewState(bakery))}</p>
             ${scoreBadgeHtml(bakery.score, true)}
           </div>
           <h3>${bakeryLinkHtml(bakery)}</h3>
@@ -204,9 +206,9 @@ function renderHome() {
         </article>`;
     }).join("")
     : `<div class="empty-panel">
-        <p class="eyebrow">The trail starts here</p>
+        <p class="eyebrow">Just getting started</p>
         <h3>Bakery stories are on the way</h3>
-        <p>Explore the map while the first field notes are gathered.</p>
+        <p>Explore the map while the first reviews are written.</p>
         <a class="text-link" href="map.html">Explore the map <span aria-hidden="true">→</span></a>
       </div>`;
 
@@ -218,7 +220,7 @@ function renderHome() {
           ${scoreBadgeHtml(bakery.score, true)}
         </li>`).join("")
     : `<li class="empty-list-item">
-        <span><strong>Favorites are still being chosen.</strong><small>Browse every visited stop while the shortlist takes shape.</small></span>
+        <span><strong>Favorites are still being chosen.</strong><small>Browse every visited bakery while the shortlist takes shape.</small></span>
         <a class="text-link" href="bakeries.html">Browse the directory <span aria-hidden="true">→</span></a>
       </li>`;
 }
@@ -263,7 +265,7 @@ function renderDirectory() {
       ? matching.map(bakeryCardHtml).join("")
       : `<div class="empty-panel empty-panel--wide">
           <p class="eyebrow">No matches</p>
-          <h2>Try a broader trail search</h2>
+          <h2>Try a broader search</h2>
           <p>No visited bakeries match those search and filter choices.</p>
           <button class="button button--secondary" id="reset-empty" type="button">Reset all filters</button>
         </div>`;
@@ -301,7 +303,7 @@ function renderRankings() {
     : `<li class="empty-panel empty-panel--wide">
         <p class="eyebrow">Scores in progress</p>
         <h3>The standings are being assembled</h3>
-        <p>Visit the directory to explore every bakery already on the trail, or see where they sit on the map.</p>
+        <p>Visit the directory to explore every bakery visited so far, or see where they sit on the map.</p>
         <div class="inline-actions">
           <a class="button button--primary" href="bakeries.html">Browse bakeries</a>
           <a class="button button--secondary" href="map.html">Explore the map</a>
@@ -312,14 +314,16 @@ function renderRankings() {
   document.querySelector("#category-winners").innerHTML = winners.length
     ? winners.map((bakery) => `
         <article class="winner-card">
-          <p class="eyebrow">${escapeHtml(bakery.superlative)}</p>
-          <h3>${bakeryLinkHtml(bakery)}</h3>
-          <p class="location">${escapeHtml(bakery.city || "Location pending")}</p>
+          <div>
+            <p class="card-label">${escapeHtml(bakery.superlative)}</p>
+            <h3>${bakeryLinkHtml(bakery)}</h3>
+            <p class="location">${escapeHtml(bakery.city || "Location pending")}</p>
+          </div>
           ${scoreBadgeHtml(bakery.score, true)}
         </article>`).join("")
     : `<div class="empty-panel empty-panel--wide">
         <p class="eyebrow">Category notes in progress</p>
-        <h3>Winners will appear as the trail grows</h3>
+        <h3>Winners will appear as the list grows</h3>
         <p>There are no category awards yet. The directory is the best place to see every visited bakery.</p>
         <a class="text-link" href="bakeries.html">Open the directory <span aria-hidden="true">→</span></a>
       </div>`;
@@ -340,9 +344,9 @@ function renderToVisit() {
 
     if (!bakeries.length) {
       results.innerHTML = `<li class="empty-panel empty-panel--wide">
-        <p class="eyebrow">The next stop is open</p>
+        <p class="eyebrow">Nothing left to visit</p>
         <h2>The visit list is clear for now</h2>
-        <p>Every bakery currently in the guide has been visited. Explore those stops in the directory or on the map.</p>
+        <p>Every bakery currently in the guide has been visited. Explore them in the directory or on the map.</p>
         <div class="inline-actions">
           <a class="button button--primary" href="map.html">Explore the map</a>
           <a class="button button--secondary" href="bakeries.html">Browse bakeries</a>
@@ -354,17 +358,13 @@ function renderToVisit() {
     results.innerHTML = matches.length
       ? matches.map((bakery) => `
           <li class="backlog-card">
-            <div>
-              <p class="eyebrow">Planned stop</p>
-              <h2>${escapeHtml(bakery.name)}</h2>
-              <p class="location">${escapeHtml(bakery.city || "Location pending")}</p>
-              ${hasText(bakery.notes) ? `<p class="card-note">${escapeHtml(bakery.notes)}</p>` : ""}
-            </div>
-            <span class="status-chip">Not yet visited</span>
+            <h2>${escapeHtml(bakery.name)}</h2>
+            <p class="location">${escapeHtml(bakery.city || "Location pending")}</p>
+            ${hasText(bakery.notes) ? `<p class="card-note">${escapeHtml(bakery.notes)}</p>` : ""}
           </li>`).join("")
       : `<li class="empty-panel empty-panel--wide">
           <p class="eyebrow">No matches</p>
-          <h2>No planned stops match that search</h2>
+          <h2>No bakeries match that search</h2>
           <p>Try another bakery name or city.</p>
           <button class="button button--secondary" id="reset-backlog-empty" type="button">Clear search</button>
         </li>`;
@@ -390,7 +390,7 @@ function mapDirectoryHtml(bakeries) {
             <strong>${escapeHtml(bakery.name)}</strong>
             <small>${escapeHtml(bakery.address || bakery.city || "Location pending")}</small>
           </span>
-          ${bakery.visited ? `<a href="${escapeHtml(reviewLink(bakery))}">View details</a>` : '<span class="status-chip">Planned stop</span>'}
+          ${bakery.visited ? `<a href="${escapeHtml(reviewLink(bakery))}">View details</a>` : '<span class="status-chip">Not yet visited</span>'}
         </li>`).join("")}</ul>`
     : `<div class="empty-panel"><h2>No bakery locations yet</h2><p>The directory will appear here as locations join the guide.</p></div>`;
 }
@@ -421,10 +421,10 @@ function renderMap() {
 
     const marylandBounds = [];
     const allBounds = [];
-    let travelStops = 0;
+    let outsideMaryland = 0;
     const pinIcon = (visited) => L.divIcon({
-      className: "trail-pin-wrap",
-      html: `<span class="trail-pin ${visited ? "trail-pin--visited" : "trail-pin--planned"}" aria-hidden="true"></span>`,
+      className: "map-pin-wrap",
+      html: `<span class="map-pin ${visited ? "map-pin--visited" : "map-pin--planned"}" aria-hidden="true"></span>`,
       iconSize: [22, 22],
       iconAnchor: [11, 22]
     });
@@ -433,9 +433,9 @@ function renderMap() {
       const marker = L.marker([bakery.lat, bakery.lng], {
         icon: pinIcon(bakery.visited),
         title: bakery.name,
-        alt: `${bakery.name}, ${bakery.visited ? "visited" : "planned stop"}`
+        alt: `${bakery.name}, ${bakery.visited ? "visited" : "not yet visited"}`
       }).addTo(map);
-      const score = bakery.visited ? `Score: ${escapeHtml(formatScore(bakery.score))}` : "Planned stop";
+      const score = bakery.visited ? `Score: ${escapeHtml(formatScore(bakery.score))}` : "Not yet visited";
       const link = bakery.visited
         ? `<a href="${escapeHtml(reviewLink(bakery))}">View details <span aria-hidden="true">→</span></a>`
         : "";
@@ -450,14 +450,14 @@ function renderMap() {
       const coordinates = [bakery.lat, bakery.lng];
       allBounds.push(coordinates);
       if (/[,]\s*MD$/i.test((bakery.city || "").trim())) marylandBounds.push(coordinates);
-      else travelStops += 1;
+      else outsideMaryland += 1;
     });
 
     const initialBounds = marylandBounds.length ? marylandBounds : allBounds;
     map.fitBounds(initialBounds, { padding: [30, 30], maxZoom: 11 });
     const coordinateGap = BAKERIES.length - withCoordinates.length;
     const notes = [`Interactive map loaded with ${withCoordinates.length} ${withCoordinates.length === 1 ? "location" : "locations"}.`];
-    if (travelStops) notes.push(`${travelStops} travel ${travelStops === 1 ? "stop is" : "stops are"} outside Maryland; zoom out to find ${travelStops === 1 ? "it" : "them"}.`);
+    if (outsideMaryland) notes.push(`${outsideMaryland} ${outsideMaryland === 1 ? "bakery is" : "bakeries are"} outside Maryland; zoom out to find ${outsideMaryland === 1 ? "it" : "them"}.`);
     if (coordinateGap) notes.push(`${coordinateGap} ${coordinateGap === 1 ? "bakery is" : "bakeries are"} listed below without a map pin.`);
     status.textContent = notes.join(" ");
   } catch (error) {
@@ -480,13 +480,13 @@ function renderReview() {
   if (!bakery) {
     setReviewMetadata(
       "Bakery not found | baltimorebakeryblog",
-      "That bakery could not be found. Return to the baltimorebakeryblog directory to explore Maryland bakery stops."
+      "That bakery could not be found. Return to the baltimorebakeryblog directory to explore Maryland bakeries."
     );
     content.innerHTML = `
       <section class="not-found" aria-labelledby="not-found-title">
         <p class="eyebrow">Lost crumb</p>
-        <h1 id="not-found-title">That bakery isn’t on this trail</h1>
-        <p>The link may be incomplete or the bakery entry may have moved. The full directory is ready to help you find another stop.</p>
+        <h1 id="not-found-title">That bakery isn’t in the guide</h1>
+        <p>The link may be incomplete or the bakery entry may have moved. The full directory is ready to help you find another bakery.</p>
         <a class="button button--primary" href="bakeries.html">Back to the directory</a>
       </section>`;
     return;
@@ -494,7 +494,7 @@ function renderReview() {
 
   setReviewMetadata(
     `${bakery.name} | baltimorebakeryblog`,
-    `Trail details for ${bakery.name} in ${bakery.city || "the bakery guide"}, including available visit notes, score, and location information.`
+    `Details for ${bakery.name} in ${bakery.city || "the bakery guide"}, including available visit notes, score, and location information.`
   );
   const visitDate = formatDate(bakery.dateVisited);
   const facts = [
@@ -510,9 +510,9 @@ function renderReview() {
   const reviewBody = hasText(bakery.review)
     ? bakery.review.split(/\n\n+/).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")
     : `<div class="empty-panel review-coming-soon">
-        <p class="eyebrow">Field notes in progress</p>
+        <p class="eyebrow">Review in progress</p>
         <h2>Full review coming soon</h2>
-        <p>${hasText(bakery.notes) ? escapeHtml(bakery.notes) : "This stop is logged, and its full tasting notes are still being prepared."}</p>
+        <p>${hasText(bakery.notes) ? escapeHtml(bakery.notes) : "This bakery is logged, and its full tasting notes are still being prepared."}</p>
       </div>`;
 
   content.innerHTML = `
@@ -532,12 +532,12 @@ function renderReview() {
         ${directions}
       </header>
       <section class="review-copy" aria-labelledby="review-heading">
-        <p class="eyebrow">From the notebook</p>
-        <h2 id="review-heading">The trail report</h2>
+        <p class="eyebrow">The write-up</p>
+        <h2 id="review-heading">Full review</h2>
         ${reviewBody}
       </section>
-      <aside class="next-stop" aria-labelledby="next-stop-title">
-        <div><p class="eyebrow">Keep exploring</p><h2 id="next-stop-title">Find your next bakery stop</h2></div>
+      <aside class="next-bakery" aria-labelledby="next-bakery-title">
+        <div><p class="eyebrow">Keep exploring</p><h2 id="next-bakery-title">Find another bakery</h2></div>
         <a class="button button--primary" href="bakeries.html">Browse all bakeries</a>
       </aside>
     </article>`;

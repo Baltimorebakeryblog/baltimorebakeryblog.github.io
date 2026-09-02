@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore visited and planned bakery stops on the baltimorebakeryblog map, with an accessible text directory for every location.">
+  <meta name="description" content="Explore visited and planned bakeries on the baltimorebakeryblog map, with an accessible text directory for every location.">
   <meta name="theme-color" content="#68251c">
-  <title>Bakery Trail Map | baltimorebakeryblog</title>
+  <title>Bakery Map | baltimorebakeryblog</title>
   <link rel="stylesheet" href="style.css?v=20260821-post1">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
@@ -24,18 +24,18 @@
     <main id="main-content" tabindex="-1">
       <div class="container">
         <header class="page-intro">
-          <p class="eyebrow">Plot the route</p>
-          <h1 id="map-page-title">Bakery trail map</h1>
-          <p>Explore geocoded stops across Maryland and beyond. The text directory below keeps every bakery readable even if the interactive map is unavailable.</p>
+          <p class="eyebrow">Find a bakery</p>
+          <h1 id="map-page-title">Bakery map</h1>
+          <p>Explore geocoded bakeries across Maryland and beyond. The text directory below keeps every bakery readable even if the interactive map is unavailable.</p>
         </header>
         <section class="map-layout" aria-labelledby="interactive-map-title">
           <h2 id="interactive-map-title">Interactive bakery map</h2>
           <div class="map-frame">
-            <div id="map" role="region" aria-label="Interactive map of bakery trail locations" aria-describedby="map-status" tabindex="0"></div>
+            <div id="map" role="region" aria-label="Interactive map of bakery locations" aria-describedby="map-status" tabindex="0"></div>
             <div class="map-meta">
               <ul class="map-legend" aria-label="Map marker legend">
                 <li><span class="legend-symbol legend-symbol--visited" aria-hidden="true">✓</span> Visited bakery</li>
-                <li><span class="legend-symbol legend-symbol--planned" aria-hidden="true">+</span> Planned stop</li>
+                <li><span class="legend-symbol legend-symbol--planned" aria-hidden="true">+</span> Not yet visited</li>
               </ul>
               <p id="map-status" role="status" aria-live="polite">Loading bakery locations…</p>
             </div>
@@ -53,7 +53,7 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <div><p class="footer-brand">baltimorebakeryblog</p><p class="footer-note">An independent guide, built with care in Maryland.</p></div>
-        <div><nav class="footer-links" aria-label="Footer navigation"><a href="blog.html">Journal</a><a href="bakeries.html">Directory</a><a href="map.html">Map</a><a href="to-visit.html">Next stops</a></nav><p class="footer-meta">&copy; 2026 baltimorebakeryblog</p></div>
+        <div><nav class="footer-links" aria-label="Footer navigation"><a href="blog.html">Journal</a><a href="bakeries.html">Directory</a><a href="map.html">Map</a><a href="to-visit.html">To visit</a></nav><p class="footer-meta">&copy; 2026 baltimorebakeryblog</p></div>
       </div>
     </footer>
   </div>
