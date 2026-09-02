@@ -764,6 +764,11 @@ h3 {
   color: var(--ink-soft);
 }
 
+.article-closing-note .text-link {
+  display: inline;
+  min-height: 0;
+}
+
 .next-essay {
   display: flex;
   gap: 2rem;

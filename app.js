@@ -18,8 +18,11 @@ function favorites() {
 }
 
 function newestReviews(limit) {
-  return [...visitedBakeries()]
-    .filter((bakery) => bakery.dateVisited)
+  const dated = visitedBakeries().filter((bakery) => bakery.dateVisited);
+  const latestByDate = (group) => group.reduce((latest, bakery) =>
+    new Date(bakery.dateVisited) > new Date(latest.dateVisited) ? bakery : latest);
+  return groupByBrand(dated)
+    .map((group) => consolidateBrand(group, latestByDate))
     .sort((a, b) => new Date(b.dateVisited) - new Date(a.dateVisited))
     .slice(0, limit);
 }
@@ -44,16 +47,20 @@ function averageScore(group) {
   return Math.round((scores.reduce((sum, score) => sum + score, 0) / scores.length) * 10) / 10;
 }
 
-function consolidateBrand(group) {
-  const primary = group.find((bakery) => hasText(bakery.superlative))
-    || group.find((bakery) => hasText(bakery.review))
-    || group[0];
+function consolidateBrand(group, pickPrimary) {
+  const primary = pickPrimary
+    ? pickPrimary(group)
+    : group.find((bakery) => hasText(bakery.superlative))
+      || group.find((bakery) => hasText(bakery.review))
+      || group[0];
   const name = hasText(primary.brand) ? (primary.brandName || primary.name) : primary.name;
-  return { ...primary, name, score: averageScore(group) };
+  const cities = [...new Set(group.map((bakery) => bakery.city).filter(hasText))];
+  const city = cities.length > 1 ? "Multiple locations" : cities[0];
+  return { ...primary, name, city, score: averageScore(group) };
 }
 
 function consolidatedByBrand(list) {
-  return groupByBrand(list).map(consolidateBrand);
+  return groupByBrand(list).map((group) => consolidateBrand(group));
 }
 
 function topScored(limit) {
@@ -121,13 +128,13 @@ function reviewState(bakery) {
 }
 
 function trailCounts() {
-  return BAKERIES.reduce((counts, bakery) => {
+  return groupByBrand(BAKERIES).reduce((counts, group) => {
     counts.total += 1;
-    if (bakery.visited) counts.visited += 1;
-    if (!bakery.visited) counts.backlog += 1;
-    if (typeof bakery.lat === "number" && typeof bakery.lng === "number") counts.mapped += 1;
-    if (hasText(bakery.review)) counts.reviewed += 1;
-    if (typeof bakery.score === "number") counts.scored += 1;
+    if (group.some((bakery) => bakery.visited)) counts.visited += 1;
+    if (group.some((bakery) => !bakery.visited)) counts.backlog += 1;
+    if (group.some((bakery) => typeof bakery.lat === "number" && typeof bakery.lng === "number")) counts.mapped += 1;
+    if (group.some((bakery) => hasText(bakery.review))) counts.reviewed += 1;
+    if (group.some((bakery) => typeof bakery.score === "number")) counts.scored += 1;
     return counts;
   }, { total: 0, visited: 0, backlog: 0, mapped: 0, reviewed: 0, scored: 0 });
 }
