@@ -208,8 +208,8 @@ function renderHome() {
     : `<div class="empty-panel">
         <p class="eyebrow">Just getting started</p>
         <h3>Bakery stories are on the way</h3>
-        <p>Explore the map while the first reviews are written.</p>
-        <a class="text-link" href="map.html">Explore the map <span aria-hidden="true">→</span></a>
+        <p>Check the map while the first reviews are written.</p>
+        <a class="text-link" href="map.html">Open the map <span aria-hidden="true">→</span></a>
       </div>`;
 
   const favoriteList = favorites();
@@ -303,10 +303,10 @@ function renderRankings() {
     : `<li class="empty-panel empty-panel--wide">
         <p class="eyebrow">Scores in progress</p>
         <h3>The standings are being assembled</h3>
-        <p>Visit the directory to explore every bakery visited so far, or see where they sit on the map.</p>
+        <p>Visit the directory to browse every bakery visited so far, or see where they sit on the map.</p>
         <div class="inline-actions">
           <a class="button button--primary" href="bakeries.html">Browse bakeries</a>
-          <a class="button button--secondary" href="map.html">Explore the map</a>
+          <a class="button button--secondary" href="map.html">Open the map</a>
         </div>
       </li>`;
 
@@ -346,9 +346,9 @@ function renderToVisit() {
       results.innerHTML = `<li class="empty-panel empty-panel--wide">
         <p class="eyebrow">Nothing left to visit</p>
         <h2>The visit list is clear for now</h2>
-        <p>Every bakery currently in the guide has been visited. Explore them in the directory or on the map.</p>
+        <p>Every bakery currently in the guide has been visited. Browse them in the directory or on the map.</p>
         <div class="inline-actions">
-          <a class="button button--primary" href="map.html">Explore the map</a>
+          <a class="button button--primary" href="map.html">Open the map</a>
           <a class="button button--secondary" href="bakeries.html">Browse bakeries</a>
         </div>
       </li>`;
@@ -403,7 +403,7 @@ function renderMap() {
 
   if (!withCoordinates.length) {
     mapElement.hidden = true;
-    status.textContent = "No bakery coordinates are available yet. Use the readable directory below to explore the guide.";
+    status.textContent = "No bakery coordinates are available yet. Use the readable directory below to browse the guide.";
     return;
   }
   if (typeof window.L === "undefined") {
@@ -480,7 +480,7 @@ function renderReview() {
   if (!bakery) {
     setReviewMetadata(
       "Bakery not found | baltimorebakeryblog",
-      "That bakery could not be found. Return to the baltimorebakeryblog directory to explore Maryland bakeries."
+      "That bakery could not be found. Return to the baltimorebakeryblog directory to browse Maryland bakeries."
     );
     content.innerHTML = `
       <section class="not-found" aria-labelledby="not-found-title">
@@ -537,7 +537,7 @@ function renderReview() {
         ${reviewBody}
       </section>
       <aside class="next-bakery" aria-labelledby="next-bakery-title">
-        <div><p class="eyebrow">Keep exploring</p><h2 id="next-bakery-title">Find another bakery</h2></div>
+        <div><p class="eyebrow">Next</p><h2 id="next-bakery-title">Find another bakery</h2></div>
         <a class="button button--primary" href="bakeries.html">Browse all bakeries</a>
       </aside>
     </article>`;
